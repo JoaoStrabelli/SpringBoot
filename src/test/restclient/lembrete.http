@@ -1,0 +1,12 @@
+@URL=http://localhost:8080
+
+@UUID=xxxxxx
+
+### Criar lembrete
+POST {{URL}}/person/{{UUID}}/lembretes
+Content-Type: application/json
+
+{
+    "mensagem": "Comprar leite",
+    "dataHora": "2025-09-10T18:00:00"
+}

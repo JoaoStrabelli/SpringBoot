@@ -1,0 +1,14 @@
+### Obter todas as pessoas
+GET http://localhost:8080/person
+
+### Obter pessoa por id
+GET http://localhost:8080/person/d3744cf5-d481-4514-b804-c61caa450a75
+
+### Criar pessoa
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{
+    "name": "Sujiru Kimymame",
+    "email": "sujirukimymame@gmail.com"
+}
