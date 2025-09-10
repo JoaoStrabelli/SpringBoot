@@ -1,9 +1,9 @@
-package br.edu.utfpr.apiaula.entity;
+package utfpr.farmdexp.estufa.models;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -24,5 +24,5 @@ public class Controle extends BaseEntity {
       name = "controle_sensor", 
       joinColumns = @JoinColumn(name = "controle_id"), 
       inverseJoinColumns = @JoinColumn(name = "sensor_id"))
-    private List<Sensor> sensores;
+    private List<Controle> controles;
 }

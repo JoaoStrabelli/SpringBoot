@@ -1,5 +1,6 @@
-package br.edu.utfpr.apiaula.repositories;
+package utfpr.farmdexp.estufa.repositories;
 
+import utfpr.farmdexp.estufa.models.Estufa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EstufaRepository extends JpaRepository<Estufa, Long> {

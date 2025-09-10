@@ -1,10 +1,10 @@
-package br.edu.utfpr.apiaula;
+package utfpr.farmdexp.estufa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiaulaApplicationTests {
+class EstufaApplicationTests {
 
 	@Test
 	void contextLoads() {
