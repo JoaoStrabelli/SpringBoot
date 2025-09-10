@@ -21,8 +21,8 @@ public class Controle extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-      name = "controle_sensor", 
-      joinColumns = @JoinColumn(name = "controle_id"), 
+      name = "controle_sensor",
+      joinColumns = @JoinColumn(name = "controle_id"),
       inverseJoinColumns = @JoinColumn(name = "sensor_id"))
     private List<Controle> controles;
 }

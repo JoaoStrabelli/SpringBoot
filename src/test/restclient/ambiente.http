@@ -1,0 +1,13 @@
+### Obter todas os ambientes
+GET http://localhost:8080/ambiente
+
+### Obter ambiente por id
+GET http://localhost:8080/ambiente/d3744cf5-d481-4514-b804-c61caa450a75
+
+### Criar ambiente
+POST http://localhost:8080/ambiente
+Content-Type: application/json
+
+{
+    "nome": "Ambiente 2"
+}
