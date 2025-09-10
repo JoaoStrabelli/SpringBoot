@@ -1,0 +1,17 @@
+### Obter todas os controles
+GET http://localhost:8080/controle
+
+### Obter controle por id
+GET http://localhost:8080/controle/d3744cf5-d481-4514-b804-c61caa450a75
+
+### Criar controle
+POST http://localhost:8080/controle
+Content-Type: application/json
+
+{
+    "nome": "Controle 2",
+    "tipo": "teste",
+    "estufa": {
+      "id": "673b9ff1-cc0c-4ec2-9dcf-c56ef1536797"
+    }
+}

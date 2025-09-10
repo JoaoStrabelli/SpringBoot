@@ -15,9 +15,6 @@ public class Sensor extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "estufa_id", nullable = false)
-    private Estufa estufa;
+    private Controle controle;
 
-    @ManyToOne
-    @JoinColumn(name = "ambiente_id", nullable = false)
-    private Ambiente ambiente;
 }

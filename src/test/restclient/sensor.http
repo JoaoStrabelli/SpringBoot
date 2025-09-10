@@ -1,0 +1,20 @@
+### Obter todos os sensores
+GET http://localhost:8080/sensor
+
+### Obter sensor por id
+GET http://localhost:8080/sensor/d3744cf5-d481-4514-b804-c61caa450a75
+
+### Criar sensor
+POST http://localhost:8080/sensor
+Content-Type: application/json
+
+{
+    "nome": "Sensor",
+    "tipo": "tipado",
+    "estufa": {
+      "id": "f700c131-26d8-4ade-b174-d7bf6b6dbc54"
+    },
+    "ambiente": {
+      "id": "d5b6b258-94ad-44a8-b14d-19c5975d476c"
+    }
+}

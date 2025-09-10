@@ -13,8 +13,8 @@ public class Estufa extends BaseEntity {
     @Column(nullable = false)
     private String nome;
 
-    // FIXME
-//    @OneToMany(mappedBy = "estufa", cascade = CascadeType.ALL)
-//    private List<Estufa> estufas;
+    @ManyToOne
+    @JoinColumn(name = "ambiente_id", nullable = false)
+    private Ambiente ambiente;
 
 }
