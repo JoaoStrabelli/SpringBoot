@@ -6,12 +6,7 @@ import java.util.UUID;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import utfpr.farmdexp.estufa.models.Ambiente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import java.net.URI;
 import org.springframework.web.util.UriComponentsBuilder;
 import utfpr.farmdexp.estufa.services.AmbienteService;
-import utfpr.farmdexp.estufa.repositories.AmbienteRepository;
 import utfpr.farmdexp.estufa.dtos.AmbienteDTO;
 
 @RestController

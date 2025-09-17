@@ -12,6 +12,7 @@ import java.util.UUID;
 // oi
 @Service
 public class AmbienteService {
+
     @Autowired
     private AmbienteRepository ambienteRepository;
 
