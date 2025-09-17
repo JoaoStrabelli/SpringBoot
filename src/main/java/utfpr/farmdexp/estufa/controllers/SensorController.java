@@ -31,7 +31,6 @@ public class SensorController {
         return service.listarPorControle(controleId, pagina, tamanho);
     }
 
-
 //    @GetMapping
 //    public Page<Sensor> listar(
 //            @RequestParam(defaultValue = "0") int pagina,
