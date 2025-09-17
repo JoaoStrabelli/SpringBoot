@@ -3,6 +3,7 @@ package utfpr.farmdexp.estufa.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,34 +13,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import utfpr.farmdexp.estufa.models.Ambiente;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import java.net.URI;
+import org.springframework.web.util.UriComponentsBuilder;
+import utfpr.farmdexp.estufa.services.AmbienteService;
 import utfpr.farmdexp.estufa.repositories.AmbienteRepository;
+import utfpr.farmdexp.estufa.dtos.AmbienteDTO;
 
 @RestController
-@RequestMapping("/ambiente")
+@RequestMapping("/ambientes")
 public class AmbienteController {
     @Autowired
-    private AmbienteRepository ambienteRepository;
+    private AmbienteService ambienteService;
 
-    @GetMapping(value = {"", "/"})
-    public List<Ambiente> getAmbiente() {
-        return ambienteRepository.findAll();
+    @GetMapping
+    public Page<Ambiente> list(@PageableDefault(size = 20) Pageable pageable) {
+        return ambienteService.findAll(pageable);
     }
 
-    @GetMapping("/{ambienteId}")
-    public ResponseEntity<Ambiente> getById(
-            @PathVariable String ambienteId) {
-
-        var uuid = UUID.fromString(ambienteId);
-        var result = ambienteRepository.findById(uuid);
-
-        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{id}")
+    public Ambiente getById(@PathVariable UUID id) {
+        return ambienteService.findById(id);
     }
-
 
     @PostMapping
-    public Ambiente create(@RequestBody Ambiente entity) {
-        System.out.println(entity);
-        ambienteRepository.save(entity);
-        return entity;
+    public ResponseEntity<Ambiente> create(@Valid @RequestBody AmbienteDTO dto, UriComponentsBuilder uriBuilder) {
+        Ambiente saved = ambienteService.create(dto);
+        URI location = uriBuilder.path("/ambientes/{id}").buildAndExpand(saved.getId()).toUri();
+        return ResponseEntity.created(location).body(saved);
+    }
+
+    @PutMapping("/{id}")
+    public Ambiente update(@PathVariable UUID id, @Valid @RequestBody AmbienteDTO dto) {
+        return ambienteService.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        ambienteService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
