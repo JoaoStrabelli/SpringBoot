@@ -1,0 +1,13 @@
+### Obter todas as estufas
+GET http://localhost:8080/estufa
+
+### Obter estufa por id
+GET http://localhost:8080/estufa/d3744cf5-d481-4514-b804-c61caa450a75
+
+### Criar estufa
+POST http://localhost:8080/estufa
+Content-Type: application/json
+
+{
+    "nome": "Estufa"
+}

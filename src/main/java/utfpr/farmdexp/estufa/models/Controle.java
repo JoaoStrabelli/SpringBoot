@@ -19,10 +19,6 @@ public class Controle extends BaseEntity {
     @JoinColumn(name = "estufa_id", nullable = false)
     private Estufa estufa;
 
-    @ManyToMany
-    @JoinTable(
-      name = "controle_sensor",
-      joinColumns = @JoinColumn(name = "controle_id"),
-      inverseJoinColumns = @JoinColumn(name = "sensor_id"))
-    private List<Controle> controles;
+    @OneToMany(mappedBy = "controle")
+    private List<Sensor> sensores;
 }
