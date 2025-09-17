@@ -1,46 +1,55 @@
 package utfpr.farmdexp.estufa.controllers;
 
-import java.util.List;
-import java.util.UUID;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import utfpr.farmdexp.estufa.dtos.ControleDTO;
 import utfpr.farmdexp.estufa.models.Controle;
-import utfpr.farmdexp.estufa.repositories.ControleRepository;
+import utfpr.farmdexp.estufa.services.ControleService;
 
 @RestController
-@RequestMapping("/controle")
+@RequestMapping("/estufa/{estufaId}/controles")
 public class ControleController {
-    @Autowired
-    private ControleRepository controleRepository;
 
-    @GetMapping(value = {"", "/"})
-    public List<Controle> getAmbiente() {
-        return controleRepository.findAll();
+    private final ControleService service;
+
+    public ControleController(ControleService service) {
+        this.service = service;
     }
-
-    @GetMapping("/{controleId}")
-    public ResponseEntity<Controle> getById(
-            @PathVariable String controleId) {
-
-        var uuid = UUID.fromString(controleId);
-        var result = controleRepository.findById(uuid);
-
-        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
 
     @PostMapping
-    public Controle create(@RequestBody Controle entity) {
-        System.out.println(entity);
-        controleRepository.save(entity);
-        return entity;
+    public ControleDTO criar(@PathVariable String estufaId, @Valid @RequestBody ControleDTO dto) {
+        return service.salvar(estufaId, dto);
+    }
+
+    @GetMapping
+    public Page<ControleDTO> listarPorEstufa(
+            @PathVariable String estufaId,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listarPorEstufa(estufaId, pagina, tamanho);
+    }
+
+//    @GetMapping
+//    public Page<Sensor> listar(
+//            @RequestParam(defaultValue = "0") int pagina,
+//            @RequestParam(defaultValue = "10") int tamanho) {
+//        return service.listarTodos(pagina, tamanho);
+//    }
+
+    @GetMapping("/{id}")
+    public Controle obterPorId(@PathVariable String id) {
+        return service.buscarPorId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable String id) {
+        service.deletar(id);
+    }
+
+    @PutMapping("/{id}")
+    public Controle atualizar(@PathVariable String id, @Valid @RequestBody ControleDTO dto) {
+        return service.atualizar(id, dto);
     }
 }

@@ -25,12 +25,12 @@ public class SensorService {
         this.controleRepository = controleRepository;
     }
 
-    public SensorDTO salvar(String controleId, SensorDTO lembreteDTO) {
+    public SensorDTO salvar(String controleId, SensorDTO sensorDTO) {
          var controle = controleRepository.findById(UUID.fromString(controleId))
                 .orElseThrow(() -> new IllegalStateException("Sensor " + controleId + " não encontrada."));
 
         Sensor sensor = new Sensor();
-        BeanUtils.copyProperties(lembreteDTO, sensor, "id");
+        BeanUtils.copyProperties(sensorDTO, sensor, "id");
         sensor.setControle(controle);
 
         Sensor salvo = sensorRepository.save(sensor);
