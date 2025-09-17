@@ -1,3 +1,4 @@
+### /controle/{controleId}/sensores
 ### Obter todos os sensores
 GET http://localhost:8080/sensor
 

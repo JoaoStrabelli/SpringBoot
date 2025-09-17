@@ -1,45 +1,56 @@
 package utfpr.farmdexp.estufa.controllers;
 
-import java.util.List;
-import java.util.UUID;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import utfpr.farmdexp.estufa.dtos.SensorDTO;
 import utfpr.farmdexp.estufa.models.Sensor;
-import utfpr.farmdexp.estufa.repositories.SensorRepository;
+import utfpr.farmdexp.estufa.services.SensorService;
 
 @RestController
-@RequestMapping("/sensor")
+@RequestMapping("/controle/{controleId}/sensores")
 public class SensorController {
-    @Autowired
-    private SensorRepository sensorRepository;
 
-    @GetMapping(value = {"", "/"})
-    public List<Sensor> getSensor() {
-        return sensorRepository.findAll();
-    }
+    private final SensorService service;
 
-    @GetMapping("/{sensorId}")
-    public ResponseEntity<Sensor> getById(
-            @PathVariable String sensorId) {
-
-        var uuid = UUID.fromString(sensorId);
-        var result = sensorRepository.findById(uuid);
-
-        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public SensorController(SensorService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public Sensor create(@RequestBody Sensor entity) {
-        System.out.println(entity);
-        sensorRepository.save(entity);
-        return entity;
+    public SensorDTO criar(@PathVariable String controleId, @Valid @RequestBody SensorDTO dto) {
+        return service.salvar(controleId, dto);
+    }
+
+    @GetMapping
+    public Page<SensorDTO> listarPorControle(
+            @PathVariable String controleId,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listarPorControle(controleId, pagina, tamanho);
+    }
+
+
+//    @GetMapping
+//    public Page<Sensor> listar(
+//            @RequestParam(defaultValue = "0") int pagina,
+//            @RequestParam(defaultValue = "10") int tamanho) {
+//        return service.listarTodos(pagina, tamanho);
+//    }
+
+    @GetMapping("/{id}")
+    public Sensor obterPorId(@PathVariable String id) {
+        return service.buscarPorId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable String id) {
+        service.deletar(id);
+    }
+
+    @PutMapping("/{id}")
+    public Sensor atualizar(@PathVariable String id, @Valid @RequestBody SensorDTO dto) {
+        return service.atualizar(id, dto);
     }
 }
