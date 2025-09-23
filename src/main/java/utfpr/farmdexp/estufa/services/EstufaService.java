@@ -35,15 +35,15 @@ public class EstufaService {
         estufa.setAmbiente(ambiente);
 
         Estufa salvo = estufaRepository.save(estufa);
-        return new EstufaDTO(salvo.getId(), salvo.getTipo());
+        return new EstufaDTO(salvo.getId(), salvo.getNome());
     }
 
     public Page<Estufa> listarTodos(int pagina, int tamanho) {
-        return EstufaRepository.findAll(PageRequest.of(pagina, tamanho));
+        return estufaRepository.findAll(PageRequest.of(pagina, tamanho));
     }
 
     public Estufa buscarPorId(UUID id) {
-        return EstufaRepository.findById(id)
+        return estufaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Estufa não encontrado com ID: " + id));
     }
 
@@ -54,7 +54,7 @@ public class EstufaService {
     public void deletar(String id) {
         logger.info("Deletando Estufa com ID: " + id);
 
-        EstufaRepository.delete(buscarPorId(id));
+        estufaRepository.delete(buscarPorId(id));
     }
 
     public Estufa atualizar(String id, EstufaDTO dto) {
@@ -63,12 +63,12 @@ public class EstufaService {
 
         logger.info("Atualizando Estufa: " + EstufaExistente);
 
-        return EstufaRepository.save(EstufaExistente);
+        return estufaRepository.save(EstufaExistente);
     }
 
-    public Page<EstufaDTO> listarPorEstufa(String estufaId, int pagina, int tamanho) {
-        return EstufaRepository.findByEstufaId(UUID.fromString(estufaId), PageRequest.of(pagina, tamanho))
-                .map(l -> new EstufaDTO(l.getId(), l.getTipo()));
+    public Page<EstufaDTO> listarPorAmbiente(String estufaId, int pagina, int tamanho) {
+        return estufaRepository.findByAmbienteId(UUID.fromString(estufaId), PageRequest.of(pagina, tamanho))
+                .map(l -> new EstufaDTO(l.getId(), l.getNome()));
     }
 
 }
