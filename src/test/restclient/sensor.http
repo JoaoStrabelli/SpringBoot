@@ -1,14 +1,21 @@
+@URL=http://localhost:8080/sensor
+@token=eyJraWQiOiIzZUZ5MCtST1JVMmFuMERwN0J3aTRPQ0w4RFNIS2NTejNCVVJ1dTc3TkQ0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5MzdjZWFjYS1hMDExLTcwMTktM2IzNS05NWRiYTkzZDMzNjQiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuc2EtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3NhLWVhc3QtMV9RdXVIbnhscUUiLCJjbGllbnRfaWQiOiI3NmtzNTJ1YjlyMmNhdHN0dnZsazdoZm5yZyIsIm9yaWdpbl9qdGkiOiJjYjUyMzU2Zi02YjNhLTQ4MzMtOGViNS1lZWM1YmRlODVlMjAiLCJldmVudF9pZCI6IjRhNDZhMTE3LTUzYTctNDY2OS1hNTkxLTY3ZTAzMGU0NzdmNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NTg3MzQ4NzgsImV4cCI6MTc1ODczODQ3OCwiaWF0IjoxNzU4NzM0ODc4LCJqdGkiOiJlNDg1YWRjMi1mZjljLTRhMDMtYjZhNi02YjFjNWIzZWNlYWUiLCJ1c2VybmFtZSI6IjkzN2NlYWNhLWEwMTEtNzAxOS0zYjM1LTk1ZGJhOTNkMzM2NCJ9.gDagovu52ClSlRakrvjkIMmMi5vMBhlcb9W-MUQnkHWunkCGGV_6i75Iat4MlYAaVmGVz2F8PUy7SS6cvT0SbXt6yj5yC9csnIrsvX6X-q05Gpwf4pVwTH8W1IL_lRvaOO_Mwhm8UgPcj9Dly68IEoOh1JD0sgTQOqmcDSGwfcbPKknMGGsZZHK331ULpUJdAkb4cwRjSZISjtjvXWM6gwFInUCl3ngJsmk0QBHo7Qo4xvHme6fbkPxABH6qyzkK18eceHe8N7QQc1T1uHtlSzgLlUcUKRjNDTtPd6CzuU9C_lEWskbYliftmO9YK9YDo41SHM0-B11dngySKbAHfg
+
 ### Obter todas os sensores
-GET http://localhost:8080/sensor
+GET {{URL}}
+Authorization: Bearer {{token}}
 
 ### Obter todas os sensores em controle
-GET http://localhost:8080/sensor/controle/30313775-854a-4c45-94c8-634f933eb2a3?pagina=0
+GET {{URL}}/controle/30313775-854a-4c45-94c8-634f933eb2a3?pagina=0
+Authorization: Bearer {{token}}
 
 ### Obter sensor por ID
-GET http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe
+GET {{URL}}/6b049965-a78e-44dd-84fe-c7faeb7936fe
+Authorization: Bearer {{token}}
 
 ### Criar sensor
-POST http://localhost:8080/sensor/controle/30313775-854a-4c45-94c8-634f933eb2a3
+POST {{URL}}/controle/30313775-854a-4c45-94c8-634f933eb2a3
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -16,7 +23,8 @@ Content-Type: application/json
 }
 
 ### Atualizar sensor
-PUT http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe
+PUT {{URL}}/6b049965-a78e-44dd-84fe-c7faeb7936fe
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -24,4 +32,5 @@ Content-Type: application/json
 }
 
 ### Deletar sensor
-DELETE http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe
+DELETE {{URL}}/6b049965-a78e-44dd-84fe-c7faeb7936fe
+Authorization: Bearer {{token}}

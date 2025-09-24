@@ -1,14 +1,21 @@
+@URL=http://localhost:8080/controle
+@token=eyJraWQiOiIzZUZ5MCtST1JVMmFuMERwN0J3aTRPQ0w4RFNIS2NTejNCVVJ1dTc3TkQ0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5MzdjZWFjYS1hMDExLTcwMTktM2IzNS05NWRiYTkzZDMzNjQiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuc2EtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3NhLWVhc3QtMV9RdXVIbnhscUUiLCJjbGllbnRfaWQiOiI3NmtzNTJ1YjlyMmNhdHN0dnZsazdoZm5yZyIsIm9yaWdpbl9qdGkiOiJjYjUyMzU2Zi02YjNhLTQ4MzMtOGViNS1lZWM1YmRlODVlMjAiLCJldmVudF9pZCI6IjRhNDZhMTE3LTUzYTctNDY2OS1hNTkxLTY3ZTAzMGU0NzdmNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NTg3MzQ4NzgsImV4cCI6MTc1ODczODQ3OCwiaWF0IjoxNzU4NzM0ODc4LCJqdGkiOiJlNDg1YWRjMi1mZjljLTRhMDMtYjZhNi02YjFjNWIzZWNlYWUiLCJ1c2VybmFtZSI6IjkzN2NlYWNhLWEwMTEtNzAxOS0zYjM1LTk1ZGJhOTNkMzM2NCJ9.gDagovu52ClSlRakrvjkIMmMi5vMBhlcb9W-MUQnkHWunkCGGV_6i75Iat4MlYAaVmGVz2F8PUy7SS6cvT0SbXt6yj5yC9csnIrsvX6X-q05Gpwf4pVwTH8W1IL_lRvaOO_Mwhm8UgPcj9Dly68IEoOh1JD0sgTQOqmcDSGwfcbPKknMGGsZZHK331ULpUJdAkb4cwRjSZISjtjvXWM6gwFInUCl3ngJsmk0QBHo7Qo4xvHme6fbkPxABH6qyzkK18eceHe8N7QQc1T1uHtlSzgLlUcUKRjNDTtPd6CzuU9C_lEWskbYliftmO9YK9YDo41SHM0-B11dngySKbAHfg
+
 ### Obter todas os controles
-GET http://localhost:8080/controle
+GET {{URL}}
+Authorization: Bearer {{token}}
 
 ### Obter todas os controle em estufa
-GET http://localhost:8080/controle/estufa/5759b7d7-1e17-462f-963f-42502436daa8?pagina=0
+GET {{URL}}/estufa/5759b7d7-1e17-462f-963f-42502436daa8?pagina=0
+Authorization: Bearer {{token}}
 
 ### Obter controle por ID
-GET http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+GET {{URL}}/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+Authorization: Bearer {{token}}
 
 ### Criar controle
-POST http://localhost:8080/controle/estufa/5759b7d7-1e17-462f-963f-42502436daa8
+POST {{URL}}/estufa/5759b7d7-1e17-462f-963f-42502436daa8
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -16,7 +23,8 @@ Content-Type: application/json
 }
 
 ### Atualizar controle
-PUT http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+PUT {{URL}}/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -24,4 +32,5 @@ Content-Type: application/json
 }
 
 ### Deletar controle
-DELETE http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+DELETE {{URL}}/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+Authorization: Bearer {{token}}
