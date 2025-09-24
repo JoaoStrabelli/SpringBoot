@@ -1,4 +1,4 @@
-package br.edu.utfpr.tac.cognito.controller;
+package utfpr.farmdexp.estufa.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
