@@ -27,7 +27,7 @@ public class SensorService {
 
     public SensorDTO salvar(String controleId, SensorDTO sensorDTO) {
          var controle = controleRepository.findById(UUID.fromString(controleId))
-                .orElseThrow(() -> new IllegalStateException("Sensor " + controleId + " não encontrada."));
+                .orElseThrow(() -> new IllegalStateException("Controle " + controleId + " não encontrada."));
 
         Sensor sensor = new Sensor();
         BeanUtils.copyProperties(sensorDTO, sensor, "id");
@@ -37,8 +37,8 @@ public class SensorService {
         return new SensorDTO(salvo.getId(), salvo.getTipo());
     }
 
-    public Page<Sensor> listarTodos(int pagina, int tamanho) {
-        return sensorRepository.findAll(PageRequest.of(pagina, tamanho));
+    public Page<SensorDTO> listarTodos(int pagina, int tamanho) {
+        return sensorRepository.findAll(PageRequest.of(pagina, tamanho)).map(SensorDTO::fromEntity);
     }
 
     public Sensor buscarPorId(UUID id) {

@@ -1,13 +1,27 @@
 ### Obter todas as estufas
 GET http://localhost:8080/estufa
 
-### Obter estufa por id
-GET http://localhost:8080/estufa/d3744cf5-d481-4514-b804-c61caa450a75
+### Obter todas as estufas em ambiente
+GET http://localhost:8080/estufa/ambiente/30c97e0e-9031-42a6-8f02-b963ec784a94?pagina=0
+
+### Obter estufa por ID
+GET http://localhost:8080/estufa/9b57ae6b-7856-4580-82e9-ab5442bf9ab0
 
 ### Criar estufa
-POST http://localhost:8080/estufa
+POST http://localhost:8080/estufa/ambiente/30c97e0e-9031-42a6-8f02-b963ec784a94
 Content-Type: application/json
 
 {
     "nome": "Estufa"
 }
+
+### Atualizar estufa
+PUT http://localhost:8080/estufa/9b57ae6b-7856-4580-82e9-ab5442bf9ab0
+Content-Type: application/json
+
+{
+  "nome": "Estufa NOVO 2"
+}
+
+### Deletar estufa
+DELETE http://localhost:8080/estufa/9b57ae6b-7856-4580-82e9-ab5442bf9ab0

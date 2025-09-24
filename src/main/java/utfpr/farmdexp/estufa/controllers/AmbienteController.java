@@ -1,50 +1,46 @@
 package utfpr.farmdexp.estufa.controllers;
 
-import java.util.UUID;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utfpr.farmdexp.estufa.models.Ambiente;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import java.net.URI;
-import org.springframework.web.util.UriComponentsBuilder;
 import utfpr.farmdexp.estufa.services.AmbienteService;
 import utfpr.farmdexp.estufa.dtos.AmbienteDTO;
 
 @RestController
-@RequestMapping("/ambientes")
+@RequestMapping("/ambiente")
 public class AmbienteController {
-    @Autowired
-    private AmbienteService ambienteService;
 
-    @GetMapping
-    public Page<Ambiente> list(@PageableDefault(size = 20) Pageable pageable) {
-        return ambienteService.findAll(pageable);
-    }
+    private final AmbienteService service;
 
-    @GetMapping("/{id}")
-    public Ambiente getById(@PathVariable UUID id) {
-        return ambienteService.findById(id);
+    public AmbienteController(AmbienteService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<Ambiente> create(@Valid @RequestBody AmbienteDTO dto, UriComponentsBuilder uriBuilder) {
-        Ambiente saved = ambienteService.create(dto);
-        URI location = uriBuilder.path("/ambientes/{id}").buildAndExpand(saved.getId()).toUri();
-        return ResponseEntity.created(location).body(saved);
+    public AmbienteDTO criar(@Valid @RequestBody AmbienteDTO dto) {
+        return service.salvar(dto);
+    }
+
+    @GetMapping
+    public Page<AmbienteDTO> listar(
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listarTodos(pagina, tamanho);
+    }
+
+    @GetMapping("/{id}")
+    public AmbienteDTO obterPorId(@PathVariable String id) {
+        return AmbienteDTO.fromEntity(service.buscarPorId(id));
     }
 
     @PutMapping("/{id}")
-    public Ambiente update(@PathVariable UUID id, @Valid @RequestBody AmbienteDTO dto) {
-        return ambienteService.update(id, dto);
+    public AmbienteDTO atualizar(@PathVariable String id, @Valid @RequestBody AmbienteDTO dto) {
+        return AmbienteDTO.fromEntity(service.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        ambienteService.delete(id);
-        return ResponseEntity.noContent().build();
+    public void deletar(@PathVariable String id) {
+        service.deletar(id);
     }
+
 }

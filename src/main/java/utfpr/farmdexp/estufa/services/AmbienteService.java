@@ -1,45 +1,61 @@
 package utfpr.farmdexp.estufa.services;
 import java.util.UUID;
+import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import utfpr.farmdexp.estufa.dtos.AmbienteDTO;
-import utfpr.farmdexp.estufa.exception.NotFoundException;
 import utfpr.farmdexp.estufa.models.Ambiente;
 import utfpr.farmdexp.estufa.repositories.AmbienteRepository;
 
 @Service
 public class AmbienteService {
 
-    @Autowired
-    private AmbienteRepository ambienteRepository;
+    Logger logger = Logger.getLogger(AmbienteService.class.getName());
 
-    public Page<Ambiente> findAll(Pageable pageable) {
-        return ambienteRepository.findAll(pageable);
+    private final AmbienteRepository ambienteRepository;
+
+    public AmbienteService(AmbienteRepository ambienteRepository) {
+        this.ambienteRepository = ambienteRepository;
     }
 
-    public Ambiente findById(UUID id) {
+    public AmbienteDTO salvar(AmbienteDTO ambienteDTO) {
+        Ambiente ambiente = new Ambiente();
+        BeanUtils.copyProperties(ambienteDTO, ambiente, "id");
+
+        Ambiente salvo = ambienteRepository.save(ambiente);
+        return AmbienteDTO.fromEntity(salvo);
+    }
+
+    public Page<AmbienteDTO> listarTodos(int pagina, int tamanho) {
+        return ambienteRepository.findAll(PageRequest.of(pagina, tamanho)).map(AmbienteDTO::fromEntity);
+    }
+
+    public Ambiente buscarPorId(UUID id) {
         return ambienteRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Ambiente não encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Ambiente não encontrado com ID: " + id));
     }
 
-    public Ambiente create(AmbienteDTO dto) {
-        Ambiente entity = new Ambiente();
-        entity.setNome(dto.nome());
-        return ambienteRepository.save(entity);
+    public Ambiente buscarPorId(String id) {
+        return buscarPorId(UUID.fromString(id));
     }
 
-    public Ambiente update(UUID id, AmbienteDTO dto) {
-        Ambiente entity = findById(id);
-        entity.setNome(dto.nome());
-        return ambienteRepository.save(entity);
+    public void deletar(String id) {
+        logger.info("Deletando ambiente com ID: " + id);
+
+        ambienteRepository.delete(buscarPorId(id));
     }
 
-    public void delete(UUID id) {
-        Ambiente entity = findById(id);
-        ambienteRepository.delete(entity);
+    public Ambiente atualizar(String id, AmbienteDTO dto) {
+        var ambienteExistente = buscarPorId(id);
+        BeanUtils.copyProperties(dto, ambienteExistente, "id");
+
+        logger.info("Atualizando Ambiente: " + ambienteExistente);
+
+        return ambienteRepository.save(ambienteExistente);
     }
+
 }

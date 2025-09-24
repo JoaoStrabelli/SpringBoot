@@ -1,21 +1,27 @@
-### /controle/{controleId}/sensores
-### Obter todos os sensores
+### Obter todas os sensores
 GET http://localhost:8080/sensor
 
-### Obter sensor por id
-GET http://localhost:8080/sensor/d3744cf5-d481-4514-b804-c61caa450a75
+### Obter todas os sensores em controle
+GET http://localhost:8080/sensor/controle/30313775-854a-4c45-94c8-634f933eb2a3?pagina=0
+
+### Obter sensor por ID
+GET http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe
 
 ### Criar sensor
-POST http://localhost:8080/sensor
+POST http://localhost:8080/sensor/controle/30313775-854a-4c45-94c8-634f933eb2a3
 Content-Type: application/json
 
 {
-    "nome": "Sensor",
-    "tipo": "tipado",
-    "estufa": {
-      "id": "f700c131-26d8-4ade-b174-d7bf6b6dbc54"
-    },
-    "ambiente": {
-      "id": "d5b6b258-94ad-44a8-b14d-19c5975d476c"
-    }
+  "tipo": "tipado"
 }
+
+### Atualizar sensor
+PUT http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe
+Content-Type: application/json
+
+{
+  "tipo": "Sensor NOVO 2"
+}
+
+### Deletar sensor
+DELETE http://localhost:8080/sensor/6b049965-a78e-44dd-84fe-c7faeb7936fe

@@ -25,20 +25,20 @@ public class ControleService {
         this.estufaRepository = controleRepository;
     }
 
-    public ControleDTO salvar(String controleId, ControleDTO controleDTO) {
-        var estufa = estufaRepository.findById(UUID.fromString(controleId))
-                .orElseThrow(() -> new IllegalStateException("Estufa " + controleId + " não encontrada."));
+    public ControleDTO salvar(String estufaId, ControleDTO controleDTO) {
+        var estufa = estufaRepository.findById(UUID.fromString(estufaId))
+                .orElseThrow(() -> new IllegalStateException("Estufa " + estufaId + " não encontrada."));
 
         Controle controle = new Controle();
         BeanUtils.copyProperties(controleDTO, controle, "id");
         controle.setEstufa(estufa);
 
         Controle salvo = controleRepository.save(controle);
-        return new ControleDTO(salvo.getId(), salvo.getTipo());
+        return ControleDTO.fromEntity(salvo);
     }
 
-    public Page<Controle> listarTodos(int pagina, int tamanho) {
-        return controleRepository.findAll(PageRequest.of(pagina, tamanho));
+    public Page<ControleDTO> listarTodos(int pagina, int tamanho) {
+        return controleRepository.findAll(PageRequest.of(pagina, tamanho)).map(ControleDTO::fromEntity);
     }
 
     public Controle buscarPorId(UUID id) {

@@ -1,8 +1,8 @@
-### Obter todas os ambientes
-GET http://localhost:8080/ambiente
+### Obter todos os ambientes
+GET http://localhost:8080/ambiente?pagina=0&tamanho=10
 
 ### Obter ambiente por id
-GET http://localhost:8080/ambiente/d3744cf5-d481-4514-b804-c61caa450a75
+GET http://localhost:8080/ambiente/4e2500ad-3537-4ae7-b5b8-58e756e69c0b
 
 ### Criar ambiente
 POST http://localhost:8080/ambiente
@@ -11,3 +11,14 @@ Content-Type: application/json
 {
     "nome": "Ambiente 2"
 }
+
+### Atualizar ambiente
+PUT http://localhost:8080/ambiente/4e2500ad-3537-4ae7-b5b8-58e756e69c0b
+Content-Type: application/json
+
+{
+  "nome": "Ambiente NOVO 2"
+}
+
+### Deletar ambiente
+DELETE http://localhost:8080/ambiente/4e2500ad-3537-4ae7-b5b8-58e756e69c0b

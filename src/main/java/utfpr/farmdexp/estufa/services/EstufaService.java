@@ -26,20 +26,20 @@ public class EstufaService {
         this.ambienteRepository = ambienteRepository;
     }
 
-    public EstufaDTO salvar(String estufaId, EstufaDTO estufaDTO) {
-        var ambiente = ambienteRepository.findById(UUID.fromString(estufaId))
-                .orElseThrow(() -> new IllegalStateException("Estufa " + estufaId + " não encontrada."));
+    public EstufaDTO salvar(String ambienteId, EstufaDTO estufaDTO) {
+        var ambiente = ambienteRepository.findById(UUID.fromString(ambienteId))
+                .orElseThrow(() -> new IllegalStateException("Ambiente " + ambienteId + " não encontrada."));
 
         Estufa estufa = new Estufa();
         BeanUtils.copyProperties(estufaDTO, estufa, "id");
         estufa.setAmbiente(ambiente);
 
         Estufa salvo = estufaRepository.save(estufa);
-        return new EstufaDTO(salvo.getId(), salvo.getNome());
+        return EstufaDTO.fromEntity(salvo);
     }
 
-    public Page<Estufa> listarTodos(int pagina, int tamanho) {
-        return estufaRepository.findAll(PageRequest.of(pagina, tamanho));
+    public Page<EstufaDTO> listarTodos(int pagina, int tamanho) {
+        return estufaRepository.findAll(PageRequest.of(pagina, tamanho)).map(EstufaDTO::fromEntity);
     }
 
     public Estufa buscarPorId(UUID id) {

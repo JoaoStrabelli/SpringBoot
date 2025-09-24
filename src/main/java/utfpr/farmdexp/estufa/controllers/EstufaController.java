@@ -13,25 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import utfpr.farmdexp.estufa.dtos.EstufaDTO;
-import utfpr.farmdexp.estufa.models.Estufa;
 import utfpr.farmdexp.estufa.services.EstufaService;
 
 @RestController
-@RequestMapping("/ambiente/{ambienteId}/estufas")
+@RequestMapping("/estufa")
 public class EstufaController {
 
-    private EstufaService service;
+    private final EstufaService service;
 
     public EstufaController(EstufaService service) {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/ambiente/{ambienteId}")
     public EstufaDTO criar(@PathVariable String ambienteId, @Valid @RequestBody EstufaDTO dto) {
         return service.salvar(ambienteId, dto);
     }
 
-    @GetMapping
+    @GetMapping("/ambiente/{ambienteId}")
     public Page<EstufaDTO> listarPorAmbiente(
             @PathVariable String ambienteId,
             @RequestParam(defaultValue = "0") int pagina,
@@ -39,25 +38,25 @@ public class EstufaController {
         return service.listarPorAmbiente(ambienteId, pagina, tamanho);
     }
 
-//    @GetMapping
-//    public Page<Sensor> listar(
-//            @RequestParam(defaultValue = "0") int pagina,
-//            @RequestParam(defaultValue = "10") int tamanho) {
-//        return service.listarTodos(pagina, tamanho);
-//    }
+    @GetMapping
+    public Page<EstufaDTO> listar(
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listarTodos(pagina, tamanho);
+    }
 
     @GetMapping("/{id}")
-    public Estufa obterPorId(@PathVariable String id) {
-        return service.buscarPorId(id);
+    public EstufaDTO obterPorId(@PathVariable String id) {
+        return EstufaDTO.fromEntity(service.buscarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public EstufaDTO atualizar(@PathVariable String id, @Valid @RequestBody EstufaDTO dto) {
+        return EstufaDTO.fromEntity(service.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable String id) {
         service.deletar(id);
-    }
-
-    @PutMapping("/{id}")
-    public Estufa atualizar(@PathVariable String id, @Valid @RequestBody EstufaDTO dto) {
-        return service.atualizar(id, dto);
     }
 }

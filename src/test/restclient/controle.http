@@ -1,17 +1,27 @@
 ### Obter todas os controles
 GET http://localhost:8080/controle
 
-### Obter controle por id
-GET http://localhost:8080/controle/d3744cf5-d481-4514-b804-c61caa450a75
+### Obter todas os controle em estufa
+GET http://localhost:8080/controle/estufa/5759b7d7-1e17-462f-963f-42502436daa8?pagina=0
+
+### Obter controle por ID
+GET http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
 
 ### Criar controle
-POST http://localhost:8080/controle
+POST http://localhost:8080/controle/estufa/5759b7d7-1e17-462f-963f-42502436daa8
 Content-Type: application/json
 
 {
-    "nome": "Controle 2",
-    "tipo": "teste",
-    "estufa": {
-      "id": "673b9ff1-cc0c-4ec2-9dcf-c56ef1536797"
-    }
+  "tipo": "tipado"
 }
+
+### Atualizar controle
+PUT http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
+Content-Type: application/json
+
+{
+  "tipo": "Controle NOVO 2"
+}
+
+### Deletar controle
+DELETE http://localhost:8080/controle/6421b6eb-dc9e-4a66-b2ae-087cf76e558b
