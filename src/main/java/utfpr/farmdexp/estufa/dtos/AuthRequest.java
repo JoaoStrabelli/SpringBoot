@@ -1,4 +1,4 @@
-package br.edu.utfpr.tac.cognito.dto;
+package utfpr.farmdexp.estufa.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
