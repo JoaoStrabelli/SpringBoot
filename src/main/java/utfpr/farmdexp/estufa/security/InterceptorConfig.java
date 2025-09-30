@@ -15,6 +15,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(cognitoTokenValidationInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/auth/**", "/swagger/**");
+                .excludePathPatterns(
+                        "/auth/**",
+                        "/swagger/**",
+                        "/api-docs/**",
+                        "/index.html",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                );
     }
 }
